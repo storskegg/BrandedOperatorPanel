@@ -1,115 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Branded Operator Panel</title>
+	<meta charset="utf8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
-  <link rel="stylesheet" type="text/css" href="" />
-  <link rel="stylesheet" type="text/css" href="" />
-  <link rel="stylesheet" type="text/css" href="" />
-  <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+	<title>Branded Operator Panel</title>
 
-  <script type="text/javascript" src=""></script>
-  <script type="text/javascript" src=""></script>
-  <script type="text/javascript" src=""></script>
-  <script type="text/javascript" src=""></script>
-  <script type="text/javascript" src="assets/js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+	<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+
+	<script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/vendor/fastclick.js"></script>
+	<script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
+	<script type="text/javascript" src="assets/js/underscore-min.js"></script>
+	<script type="text/javascript" src="assets/js/foundation.min.js"></script>
+	<script type="text/javascript" src="assets/js/isotope.pkgd.js"></script>
+	<script type="text/javascript" src="assets/js/fit-columns.js"></script>
+	<script type="text/javascript" src="assets/js/masonry-horizontal.js"></script>
+	<script type="text/javascript" src="assets/js/app.js"></script>
 
 </head>
 <body>
 <div class="off-canvas-wrap">
-  <div class="inner-wrap">
-    <nav class="tab-bar" id="panelTopBar" data-topbar>
-      <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-      </section>
+	<div class="inner-wrap">
+		<nav class="tab-bar" id="panelTopBar" data-topbar>
+			<section class="left-small">
+				<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+			</section>
 
-      <section class="middle tab-bar-section">
-        <h1 class="title">Branded Operator Panel</h1>
-      </section>
+			<section class="middle tab-bar-section">
+				<h1 class="title">Branded Operator Panel</h1>
+			</section>
 
-      <!--
-      <section class="right-small">
-        <a class="right-off-canvas-toggle menu-icon" ><span></span></a>
-      </section>
-      -->
-    </nav>
+			<!--
+			<section class="right-small">
+				<a class="right-off-canvas-toggle menu-icon" ><span></span></a>
+			</section>
+			-->
+		</nav>
 
-    <aside class="left-off-canvas-menu">
-      <ul class="off-canvas-list" id="qMenu">
-      </ul>
-    </aside>
+		<aside class="left-off-canvas-menu">
+			<ul class="off-canvas-list" id="qMenu">
+			</ul>
+		</aside>
 
-    <!--
-    <aside class="right-off-canvas-menu">
-      <ul class="off-canvas-list">
-        <li><label>Users</label></li>
-        <li><a href="#">Hari Seldon</a></li>
-      </ul>
-    </aside>
-    -->
+		<!--
+		<aside class="right-off-canvas-menu">
+			<ul class="off-canvas-list">
+				<li><label>Users</label></li>
+				<li><a href="#">Hari Seldon</a></li>
+			</ul>
+		</aside>
+		-->
 
-    <main class="main-section">
-      <!-- content goes here -->
-      <header class="small-12 columns">
-        <div class="page-header" id="panelHeader">
-        </div>
-      </header>
-      
-      <section>
-        <div class="small-6 medium-4 large-3 columns" id="usersPanel">
+		<main class="main-section">
+			<!-- content goes here -->
+			<header class="small-12 columns">
+				<div class="page-header" id="panelHeader">
+				</div>
+			</header>
 
-        </div>
-        
-        <div class="small-6 medium-8 large-9 columns end" id="callsPanel" data-equalizer-watch>
-          <header class="small-12 columns">
-            <h3 class="subheader"><strong>Calls in Queue</strong></h3>
-          </header>
-          
-          <div class="small-12 columns isotope js-isotope calls" data-isotope-options='{ "layoutMode": "fitRows", "itemSelector": ".call" }'>
-            
-            <div class="panel call radius {{call.status}}" ng-repeat="call in calls">
-              <h2 class="small-6 center columns">{{call.qtime}}</h2>
-              <h6 class="small-12 columns tel">{{call.qtime}}</h6>
-            </div>
-            
-          </div>
-        </div>
-      </section>
-    </main>
+			<section>
+				<!-- This is the Users Panel -->
+				<div class="small-6 medium-4 large-3 columns" id="panelUsers">
 
-  <a class="exit-off-canvas"></a>
+				</div>
 
-  </div>
+				<!-- This is the Calls Panel -->
+				<div class="small-6 medium-8 large-9 columns end" id="panelCalls" data-equalizer-watch>
+
+				</div>
+			</section>
+		</main>
+
+		<!-- Not visible unless the off-canvas menu is open -->
+		<a class="exit-off-canvas"></a>
+
+	</div>
 </div>
 </body>
 
+<!-- ########## tmpl_qMenu ########## -->
 <script type="text/template" id="tmpl_qMenu">
 <li><label>Queues</label></li>
-<% _.each(_.keys(rawData.queues), function(queue) { %>
-<li><a href="#" class="func_q_select" data-queue="<%= queue %>"><%= rawData.queues[queue].name %></a></li>
+<% _.each(_.keys(queues), function(queue) { %>
+<li><a href="#" class="func_q_select" data-queue="<%= queue %>"><%= queues[queue].name %></a></li>
 <% }); %>
 </script>
 
+<!-- ########## tmpl_panelHeader ########## -->
 <script type="text/template" id="tmpl_panelHeader">
-<h1><%= rawData.currentQ %> : Customer Service <span class="right">{ 5 }</span></h1>
+<h1><%= currentQ %> : Customer Service <span class="right">{ <% print(_.size(queues[currentQ].activeCalls)); %> }</span></h1>
 </script>
-  
-<script type="text/template" id="tmpl_userPanel">
+
+<!-- ########## tmpl_userPanel ########## -->
+<script type="text/template" id="tmpl_panelUsers">
 <header class="small-12 columns" id="usersPanelHeader">
-  <h3 class="subheader"><strong>Users:</strong> <strong class="right">{ 5 }</strong></h3>
+	<h3 class="subheader"><strong>Users:</strong> <strong class="right"><% print( _.size(queues[currentQ].activeUsers) ); %></strong></h3>
 </header>
 
 <div id="userPanelsWrap" class="users small-12 columns isotope js-isotope" data-isotope-options='{ "itemSelector": ".user", "layoutMode": "fitRows"}'>
-
-  <div class="panel user {{user.num}} radius {{user.status}}" ng-repeat="user in extensions">
-    <h2 class="small-12 columns text-center">{{user.num}}</h2>
-    <h6 class="small-12 columns text-center tel">{{user.activeCall}}</h6>
-  </div>
+<% _.each(queues[currentQ].activeUsers, function(num) { console.log(num); %>
+	<div class="panel user ext<%= num %> radius <%= extensions[num].status %>">
+		<h2 class="small-12 columns text-center"><%= num %></h2>
+		<h6 class="small-12 columns text-center tel"><%= extensions[num].activeCall %></h6>
+	</div>
+<% }); %>
 </div>
 </script>
+
+<!-- ########## tmpl_callsPanel ########## -->
+<script type="text/template" id="tmpl_panelCalls">
+<header class="small-12 columns">
+	<h3 class="subheader"><strong>Calls in Queue</strong></h3>
+</header>
+
+<div class="small-12 columns isotope js-isotope calls" data-isotope-options='{ "layoutMode": "fitRows", "itemSelector": ".call" }'>
+<% _.each(queues[currentQ].activeCalls, function(call) { %>
+	<div class="panel call radius <%= call.status %>">
+		<h2 class="small-6 center columns"><%= call.qtime %></h2>
+		<h6 class="small-12 columns tel"><%= call.num %></h6>
+	</div>
+<% }); %>
+</div>
+</script>
+
 
 </html>
