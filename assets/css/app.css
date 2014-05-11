@@ -1,0 +1,100 @@
+body {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/paper_fff.jpg);
+}
+.tab-bar-section,
+.left-off-canvas-menu {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/bgnoise.png);
+}
+.page-header {
+  border-bottom: 1px solid #000;
+  margin-bottom: 1rem;
+}
+.user, .call {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.call {
+  width: 16.4rem;
+  height: 7rem;
+  float: left;
+  margin-right: 1rem;
+}
+.call:last-of-type {
+  margin-right: 0;
+}
+.user.ready, .call.active {
+  background: rgba(200, 255, 200, 0.75);
+  border: 2px solid rgba(20, 255, 20, 1.0);
+}
+.user.oncall, .call.waiting {
+  background: rgba(240, 230, 130, 0.75);
+  border: 2px solid rgba(200, 180, 0, 1.0);
+}
+.user.dnd, .call.tardy {
+  background: rgba(255, 200, 200, 0.75);
+  border: 2px solid rgba(255, 20, 20, 1.0);
+}
+.user {
+  width: 12rem;
+/*  height: 8.5rem; */
+  float: left;
+  margin-right: 1rem;
+}
+.user.offline {
+  display: none;
+}
+
+.inbound:empty,
+.outbound:empty {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.outbound:before {
+  content: 'Outbound';
+}
+
+.inbound:before {
+  content: 'Inbound';
+}
+
+/* clear fix */
+.isotope:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#userPanelsWrap {
+  overflow-y: scroll;
+}
+.call .tel:before {
+  content: 'Phone: ';
+}
+.user.dnd .tel,
+.user.ready .tel,
+.user.offline .tel,
+.user.dnd .bound,
+.user.ready .bound,
+.user.offline .bound {
+  display: none;
+  visibility: hidden;
+}
+
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label {
+  background-color: transparent;
+  display: block;
+  padding: 0.66667rem;
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid #262626;
+  cursor: pointer;
+  width: 100%;
+}
+input[type=radio] + label:hover,
+input[type=radio]:checked + label {
+  background-image: none;
+  background-color: #444 !important;
+}
