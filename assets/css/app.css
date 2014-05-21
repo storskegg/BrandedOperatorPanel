@@ -1,9 +1,9 @@
 body {
-  background: url(../paper_fff.jpg);
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/paper_fff.jpg);
 }
 .tab-bar-section,
 .left-off-canvas-menu {
-  background-image: url(../bgnoise.png);
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/bgnoise.png);
 }
 .page-header {
   border-bottom: 1px solid #000;
@@ -27,7 +27,7 @@ body {
   background: rgba(200, 255, 200, 0.75);
   border: 2px solid rgba(20, 255, 20, 1.0);
 }
-.user.oncall, .call.waiting, .user.ringing {
+.user.oncall, .call.waiting, .user.ringing, .call.default-status {
   background: rgba(240, 230, 130, 0.75);
   border: 2px solid rgba(200, 180, 0, 1.0);
 }
@@ -97,4 +97,20 @@ input[type=radio] + label:hover,
 input[type=radio]:checked + label {
   background-image: none;
   background-color: #444 !important;
+}
+
+.func_q_select {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.func_q_select.active {
+  background-color: #700;
+}
+.func_q_select:hover {
+  background-color: #666;
+  transition: all 0.3s;
+}
+.func_q_select.active:hover {
+  background-color: #a00;
+  transition: all 0.3s;
 }
