@@ -103,10 +103,13 @@
 
 <div id="userPanelsWrap" class="users small-12 columns isotope js-isotope" data-isotope-options='{ "itemSelector": ".user", "layoutMode": "fitRows"}'>
 <% _.each(queues[currentQ].activeUsers, function(num) { console.log(num); %>
+<%   if (extensions[num]) { %>
 	<div class="panel user ext<%= num %> radius <%= extensions[num].status %>">
 		<h2 class="small-12 columns text-center"><%= num %></h2>
-		<h6 class="small-12 columns text-center tel"><%= extensions[num].activeCall %></h6>
+		<h6 class="small-12 columns text-center tel"><%= (extensions[num].activeCall.length < 7)?'Ext. ' + extensions[num].activeCall:extensions[num].activeCall %></h6>
+      <h6 class="small-12 columns text-center">Calls Taken: <%= queues[currentQ].member_stats[num].CallsTaken %></h6>
 	</div>
+<%   } %>
 <% }); %>
 </div>
 </script>
@@ -121,11 +124,11 @@
 <% _.each(queues[currentQ].activeCalls, function(call) { %>
 	<div class="panel call radius <%= call.status %>">
 		<h2 class="small-6 center columns"><%= call.qtime %></h2>
-		<h6 class="small-12 columns tel"><%= call.num %></h6>
+		<h6 class="small-12 columns tel"><%= (call.CallerIDNum.length < 7)?'Ext. ' + call.CallerIDNum:call.CallerIDNum %></h6>
+      <h6 class="small-12 columns">Agent: <%= call.ConnectedLineNum %></h6>
 	</div>
 <% }); %>
 </div>
 </script>
-
 
 </html>

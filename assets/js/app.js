@@ -1,4 +1,126 @@
 window.rawData = {
+ "extensions" : {
+      "102" : {
+         "direction" : "outbound",
+         "num" : "102",
+         "activeCall" : "102",
+         "status" : "ringing"
+      },
+      "720" : {
+         "direction" : "inbound",
+         "num" : "720",
+         "activeCall" : "100",
+         "status" : "ringing"
+      }
+   },
+
+   "queues" : {
+      "200" : {
+         "name" : "200"
+      },
+      "default" : {
+         "name" : "default"
+      },
+      "100" : {
+         "name" : "100",
+         "member_stats" : {
+            "104" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/104@from-queue"
+            },
+            "103" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/103@from-queue"
+            },
+            "106" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/106@from-queue"
+            },
+            "102" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/102@from-queue"
+            },
+            "108" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "1",
+               "LastCall" : "1400567786",
+               "Location" : "Local/108@from-queue"
+            },
+            "105" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/105@from-queue"
+            },
+            "110" : {
+               "Status" : "1",
+               "Paused" : "0",
+               "Membership" : "dynamic",
+               "Penalty" : "0",
+               "CallsTaken" : "0",
+               "LastCall" : "0",
+               "Location" : "Local/110@from-queue"
+            }
+         },
+         "activeUsers" : [
+            "102",
+            "106",
+            "105",
+            "108",
+            "104",
+            "110",
+            "103"
+         ],
+"activeCalls" : [
+            {
+               "num" : "720",
+               "trying_agent" : "103",
+               "Channel" : "SIP/restoreh.voip.kawlin.com-000000b0",
+               "Wait" : "13",
+               "ConnectedLineName" : "103",
+               "ConnectedLineNum" : "103",
+               "CallerIDName" : "CS:720",
+               "Uniqueid" : "1400570487.498",
+               "qtime" : "0:13",
+               "CallerIDNum" : "720"
+            }
+         ]
+
+      },
+      "300" : {
+         "name" : "300"
+      }
+   }
+};
+
+/*
+window.rawData = {
 	"currentQ" : 100,
 	"queues" : {
 		"200" : {
@@ -60,7 +182,7 @@ window.rawData = {
 					"num" : "6084660833",
 					"atime" : "",
 					"qtime" : "2:45",
-					"status" : "tardy"
+					"status" : "waiting"
 				},
 				"6084660836" : {
 					"num" : "6084660836",
@@ -159,6 +281,8 @@ window.rawData = {
 	}
 };
 
+*/
+
 $(document).foundation();
 
 // Thanks to MatthewKennedy @
@@ -198,6 +322,8 @@ var partial_panelCalls = function() {
 
 var buildPanel = function() {
 	// Get the data
+  
+  window.rawData.currentQ = 100;
 	
 	partial_qMenu();
 	partial_panelHeader();
