@@ -1,149 +1,20 @@
 var bopData = {
- "extensions" : {
-	  "102" : {
-		 "direction" : "outbound",
-		 "num" : "102",
-		 "activeCall" : "102",
-		 "status" : "ringing"
-	  },
-	  "720" : {
-		 "direction" : "inbound",
-		 "num" : "720",
-		 "activeCall" : "100",
-		 "status" : "ringing"
-	  }
-   },
-
-   "queues" : {
-	  "200" : {
-		 "name" : "200"
-	  },
-	  "default" : {
-		 "name" : "default"
-	  },
-	  "100" : {
-		 "name" : "100",
-		 "member_stats" : {
-			"104" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/104@from-queue"
-			},
-			"103" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/103@from-queue"
-			},
-			"106" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/106@from-queue"
-			},
-			"102" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/102@from-queue"
-			},
-			"108" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "1",
-			   "LastCall" : "1400567786",
-			   "Location" : "Local/108@from-queue"
-			},
-			"105" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/105@from-queue"
-			},
-			"110" : {
-			   "Status" : "1",
-			   "Paused" : "0",
-			   "Membership" : "dynamic",
-			   "Penalty" : "0",
-			   "CallsTaken" : "0",
-			   "LastCall" : "0",
-			   "Location" : "Local/110@from-queue"
-			}
-		 },
-		 "activeUsers" : [
-			"102",
-			"106",
-			"105",
-			"108",
-			"104",
-			"110",
-			"103"
-		 ],
-"activeCalls" : [
-			{
-			   "num" : "720",
-			   "trying_agent" : "103",
-			   "Channel" : "SIP/restoreh.voip.kawlin.com-000000b0",
-			   "Wait" : "13",
-			   "ConnectedLineName" : "103",
-			   "ConnectedLineNum" : "103",
-			   "CallerIDName" : "CS:720",
-			   "Uniqueid" : "1400570487.498",
-			   "qtime" : "0:13",
-			   "CallerIDNum" : "720"
-			}
-		 ]
-
-	  },
-	  "300" : {
-		 "name" : "300"
-	  }
-   }
-};
-
-$(document).foundation();
-
-// Thanks to MatthewKennedy @
-// https://github.com/zurb/foundation/issues/3800
-// for this little bit.
-$(function() {
-	var timer;
-
-	$(window).resize(function() {
-		clearTimeout(timer);
-		timer = setTimeout(function() {
-			$('.inner-wrap').css("min-height", $(window).height() + "px" );
-			$('#userPanelsWrap').css("max-height", ($(window).height() - $('#panelTopBar').outerHeight() - $('#panelHeader').outerHeight() - $('#usersPanelHeader').outerHeight()) + "px" );
-		}, 40);
-	}).resize();
-});
+	"extensions":{},
+	"queues":{},
+	"activeCalls":{}
+};	// Init empty dataset
+var currentQ = 'default';	// Set initial Q on page load
+var dw;				// The Worker
+var lastUpdate = 0;
 
 var partial_qMenu = function() {
 	var qMenuTemplate = _.template($('#tmpl_qMenu').html());
 	$('#qMenu').html(qMenuTemplate(bopData));
 };
 
-var partial_panelHeader = function() {
-	var panelHeader = _.template($('#tmpl_panelHeader').html());
-	$('#panelHeader').html(panelHeader(bopData));
+var partial_panelStats = function() {
+	var panelStats = _.template($('#tmpl_panelStats').html());
+	$('#panelStats').html(panelStats(bopData));
 };
 
 var partial_panelUsers = function() {
@@ -156,62 +27,141 @@ var partial_panelCalls = function() {
 	$('#panelCalls').html(panelCalls(bopData));
 };
 
-var buildPanel = function() {
-	// Get the data
-	partial_qMenu();
-	partial_panelHeader();
-	partial_panelUsers();
-	partial_panelCalls();
+var partial_panelExtensions = function() {
+	var panelExtensions = _.template($('#tmpl_panelExtensions').html());
+	$('#panelExtensions').html(panelExtensions(bopData));
 };
 
 var refreshPanel = function() {
+	// Only init the more static components of the UI
+	partial_qMenu();
+	// (Re-)Init the more dynamic components of the UI
+	partial_panelStats();
 	partial_panelUsers();
 	partial_panelCalls();
+	partial_panelExtensions();
 };
 
-var dw;
+var bopFuncs = {
+	indicator: function(status) {
+		// To update an indicator (so you know the Worker is doing its job correctly)
+		//$('.indicator').toggleClass('off').toggleClass('on');
+	},
+	data: function(data) {
+		bopData = data;
+		refreshPanel();
+	},
+	error: function(msg) {
+		console.log(msg);
+	},
+	reload: function() {
+		document.location.reload();
+	}
+};
+
 var initWorker = function() {
+	// Check if Web Workers are supported
 	if (typeof Worker !== "undefined") {
+		// Check if OUR worker is initialized
+		// If not, get it running
 		if (typeof dw == "undefined") {
-			dw = new Worker('js/bopWorker.js');
+			dw = new Worker('js/bop/bopWorker.js');
 		}
+		// The worker gives us JSON-encapsulated messages; Let's listen for them
 		dw.onmessage = function(e) {
-			var msg = event.data;
-			if (msg.type != 'error') {
+			var msg = JSON.parse(e.data);
+
+			// If the message isn't an error, let's update the data object, and refresh the dynamic bits
+			bopFuncs[msg.type](msg.data);
+			/*
+			if (msg.type == 'indicator') {
+				;
+			} else if (msg.type == 'data') {
 				bopData = msg.data;
 				refreshPanel();
 			} else {
+				// If it's an error, let's note it on the console
 				console.log('bopWorker Error: ', msg.data);
 			}
+			*/
+		};
+		dw.onerror = function(err) {
+			console.log("bopWorker -- An error has occurred: ", err);
 		};
 	} else {
+		// If we don't support Web Sockets, let's work around it
 		setInterval(function() {
 			var rq = new XMLHttpRequest();
 			var data = false;
 
+			// We're expecting to find the data in this file
+			// We're also assuming that the data will be plaintext, parseable into JSON
 			rq.open('GET', '/wallboard.html', false);
 			rq.send(null);
 
 			if (rq.status >= 200 && rq.status < 400) {
-				bopData = JSON.parse(rq.responseText);
+				// If things look good, let's use it; account for empties, though
+				bopData = JSON.parse(rq.responseText || {});
 			}
 		}, 2000);
 	}
 };
+
+// A method to kill the worker if ever we need it; it's presently unimplemented
 var killWorker = function() {
 	dw.terminate();
-}
+};
 
+/*
+ * Courtesy of powtac: http://stackoverflow.com/questions/6312993/javascript-seconds-to-time-with-format-hhmmss
+ */
+
+String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10 && hours > 0) {hours   = "0"+hours;}
+    if (minutes < 10 && hours) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = "";
+    if (hours) time += hours + ':';
+    time += minutes + ':' + seconds;
+    return time;
+};
+
+var prettifyDID = function(num) {
+	if (typeof num === 'number') {
+		num = num.toString();
+	}
+
+	if (typeof num !== 'string') {
+		return num;
+	} else if (num.length === 10) {
+		return "(" + num.substring(0, 3) + ") " + num.substring(3,6) + "-" + num.substring(6, 10);
+	} else if (num.length === 11) {
+		// Assume an US Exchange
+		return "(" + num.substring(1, 4) + ") " + num.substring(4,7) + "-" + num.substring(7, 11);
+	} else if (num.length === 7) {
+		return num.substring(0, 3) + "-" + num.substring(3,7);
+	} else if (num.length < 7) {
+		return 'Ext. ' + num;
+	} else {
+		return num;
+	}
+};
+
+// Here is where the "magic" begins
 $(document).ready(function() {
-	// Set initial Q on page load
-	bopData.currentQ = 100;
-  
+	// Delegate: Listen for changes in the current Q
 	$(document.body).on('click', '.func_q_select', function(e) {
 		e.preventDefault();
-		rawData.currentQ = $(this).data('queue');
-		buildPanel();
+		currentQ = $(this).data('queue');
+		refreshPanel();
 	});
 
-	buildPanel();
-	setInterval(refreshPanel, 2000);
+	refreshPanel();
+	initWorker();
+	setInterval(function() { document.location.reload(); }, 240000); // reload document every 4min
 });

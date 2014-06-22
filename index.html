@@ -4,130 +4,246 @@
 	<meta charset="utf8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>Branded Operator Panel</title>
+	<title>Restore Health Wallboard</title>
 
-	<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
-	<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="assets/css/foundation.min.css" />
-	<link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/app.css" />
 
-	<script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
-	<script type="text/javascript" src="assets/js/vendor/fastclick.js"></script>
-	<script type="text/javascript" src="assets/js/vendor/modernizr.js"></script>
-	<script type="text/javascript" src="assets/js/underscore-min.js"></script>
-	<script type="text/javascript" src="assets/js/foundation.min.js"></script>
-	<script type="text/javascript" src="assets/js/isotope.pkgd.js"></script>
-	<script type="text/javascript" src="assets/js/fit-columns.js"></script>
-	<script type="text/javascript" src="assets/js/masonry-horizontal.js"></script>
-	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/jquery.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/fastclick.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/modernizr.js"></script>
+	<script type="text/javascript" src="/assets/js/underscore-min.js"></script>
+
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="/assets/js/app.js"></script>
 
 </head>
 <body>
-<div class="off-canvas-wrap">
-	<div class="inner-wrap">
-		<nav class="tab-bar" id="panelTopBar" data-topbar>
-			<section class="left-small">
-				<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-			</section>
 
-			<section class="middle tab-bar-section">
-				<h1 class="title">Branded Operator Panel</h1>
-			</section>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Restore Health Wallboard</a>
+    </div>
 
-			<!--
-			<section class="right-small">
-				<a class="right-off-canvas-toggle menu-icon" ><span></span></a>
-			</section>
-			-->
-		</nav>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+      	<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Queues <b class="caret"></b></a>
+          <ul class="dropdown-menu" id="qMenu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-		<aside class="left-off-canvas-menu">
-			<ul class="off-canvas-list" id="qMenu">
-			</ul>
-		</aside>
+<section class="container-fluid">
+	<div class="col-sm-12">
+		<div class="panel panel-q-stats" id="panelStats">
 
-		<!--
-		<aside class="right-off-canvas-menu">
-			<ul class="off-canvas-list">
-				<li><label>Users</label></li>
-				<li><a href="#">Hari Seldon</a></li>
-			</ul>
-		</aside>
-		-->
-
-		<main class="main-section">
-			<!-- content goes here -->
-			<header class="small-12 columns">
-				<div class="page-header" id="panelHeader">
-				</div>
-			</header>
-
-			<section>
-				<!-- This is the Users Panel -->
-				<div class="small-6 medium-4 large-3 columns" id="panelUsers">
-
-				</div>
-
-				<!-- This is the Calls Panel -->
-				<div class="small-6 medium-8 large-9 columns end" id="panelCalls" data-equalizer-watch>
-
-				</div>
-			</section>
-		</main>
-
-		<!-- Not visible unless the off-canvas menu is open -->
-		<a class="exit-off-canvas"></a>
-
+		</div>
 	</div>
-</div>
+</section>
+
+<main class="main-section container-fluid">
+	<section>
+		<!-- This is the Users Panel -->
+		<div class="col-sm-4 col-md-4 col-lg-5" id="panelUsers">
+
+		</div>
+
+		<!-- This is the Calls Panel -->
+		<div class="col-sm-4 col-md-4 col-lg-4" id="panelCalls">
+
+		</div>
+
+		<!-- This is the Extensions List -->
+		<div class="col-sm-4 col-md-4 col-lg-3" id="panelExtensions">
+
+		</div>
+
+	</section>
+</main>
+
 </body>
 
 <!-- ########## tmpl_qMenu ########## -->
 <script type="text/template" id="tmpl_qMenu">
-<li><label>Queues</label></li>
 <% _.each(_.keys(queues), function(queue) { %>
 <li><a href="#" class="func_q_select" data-queue="<%= queue %>"><%= queues[queue].name %></a></li>
 <% }); %>
 </script>
 
-<!-- ########## tmpl_panelHeader ########## -->
-<script type="text/template" id="tmpl_panelHeader">
-<h1><%= currentQ %> : Customer Service <span class="right">{ <% print(_.size(queues[currentQ].activeCalls)); %> }</span></h1>
+<!-- ########## tmpl_panelStats ########## -->
+<script type="text/template" id="tmpl_panelStats">
+<div class="panel-body">
+<% if (currentQ != 'default') { %>
+	<section class="col-lg-4 col-lg-offset-4">
+		Performance: <%= queues[currentQ].queue_stats.ServicelevelPerf %>% / Hold Time: <%= queues[currentQ].queue_stats.Holdtime %> / Abandoned: <%= queues[currentQ].queue_stats.Abandoned %> / Completed: <%= queues[currentQ].queue_stats.Completed %>
+	</section>
+<% } else { %>
+<%   _.each(queues, function(q, num) { %>
+<%     if (num != currentQ) { %>
+	<section class="col-lg-4">
+		<strong>Queue Stats (<%= num %>):</strong><br />
+		Performance: <%= q.queue_stats.ServicelevelPerf %>% / Hold Time: <%= q.queue_stats.Holdtime %> / Abandoned: <%= q.queue_stats.Abandoned %> / Completed: <%= q.queue_stats.Completed %>
+	</section>
+<%     } %>
+<%   }); %>
+<% } %>
+</div>
 </script>
 
 <!-- ########## tmpl_userPanel ########## -->
 <script type="text/template" id="tmpl_panelUsers">
-<header class="small-12 columns" id="usersPanelHeader">
-	<h3 class="subheader"><strong>Users:</strong> <strong class="right"><% print( _.size(queues[currentQ].activeUsers) ); %></strong></h3>
-</header>
 
-<div id="userPanelsWrap" class="users small-12 columns isotope js-isotope" data-isotope-options='{ "itemSelector": ".user", "layoutMode": "fitRows"}'>
-<% _.each(queues[currentQ].activeUsers, function(num) { %>
-<%   if (extensions[num]) { %>
-	<div class="panel user ext<%= num %> radius <%= extensions[num].status %>">
-		<h2 class="small-12 columns text-center"><%= num %></h2>
-		<h6 class="small-12 columns text-center tel"><%= (extensions[num].activeCall.length < 7)?'Ext. ' + extensions[num].activeCall:extensions[num].activeCall %></h6>
-      <h6 class="small-12 columns text-center">Calls Taken: <%= queues[currentQ].member_stats[num].CallsTaken %></h6>
+<div id="userPanelsWrap" class="users col-sm-12">
+<% if (currentQ != 'default') { %>
+	<header class="col-sm-12" id="usersPanelHeader">
+			<h3 class="subheader"><strong>Users:</strong></h3>
+	</header>
+
+<%   if (queues[currentQ] && queues[currentQ].member_stats) { %>
+<%     _.each(queues[currentQ].activeUsers, function(num) { %>
+<%       if (extensions[num]) { %>
+
+	<div class="col-md-12 col-lg-3">
+		<div class="panel user ext<%= num %> <%= extensions[num].status || 'ready' %>">
+			<div class="panel-body">
+				<h3 class="col-sm-12 text-center"><%= num %></h3>
+<% if (extensions[num] && extensions[num].connected_to) { %>
+				<h5 class="col-sm-12 text-center"><%= (extensions[num].connected_to.length < 7)?'Ext. ' + extensions[num].connected_to:((extensions[num].connected_to.length == 10)?"(" + extensions[num].connected_to.substring(0, 3) + ") " + extensions[num].connected_to.substring(3,6) + "-" + extensions[num].connected_to.substring(6, 10):extensions[num].connected_to) %></h5>
+<% } %>
+				<h4 class="col-sm-12 text-center">Status: <%= extensions[num].status || "Available" %></h4>
+				<h6 class="col-sm-12 text-center">Calls Taken: <%= queues[currentQ].member_stats[num].CallsTaken %></h6>
+			</div>
+		</div>
 	</div>
+
+<%       } %>
+<%     }); %>
+<%   } else { %>
+
+	<h5 class="subheader">No Users in Queue: <%= currentQ %></h5>
+
 <%   } %>
-<% }); %>
+<% } else { %>
+<%   _.each(queues, function(q, q_num) { %>
+<%     if (q.name != currentQ) { %>
+
+	<section class="row qrow q<%= q.name %> qusers">
+<%		   if (q.member_stats) { %>
+<%       _.each(q.activeUsers, function(num) { %>
+		<div class="col-sm-12 col-md-3">
+			<div class="panel user ext<%= num %> <% if (extensions[num] && extensions[num].status) { print(extensions[num].status); } else { print('ready'); } %>">
+				<div class="panel-body">
+					<h3 class="col-sm-12 text-center"><%= num || '&mdash;' %></h3>
+
+					<h4 class="col-sm-12 text-center">
+						<% if (!extensions[num] || !extensions[num].status) { print("Available"); } else if (extensions[num] && extensions[num].status.match(/oncall/i)) {
+							print("On Call: " + (Math.round((new Date().getTime() - (extensions[num].active_call.timestamp - (719528*24*3600)) * 1000)/1000)).toString().toHHMMSS());
+						} else if (extensions[num] && extensions[num].status.match(/ringing/i)) { print('Ringing ' + (Math.round((new Date().getTime() - (extensions[num].active_call.timestamp - (719528*24*3600)) * 1000)/1000)).toString().toHHMMSS());} else { print("Available"); } %>
+					</h4>
+
+<% if (extensions[num] && extensions[num].connected_to) { %>
+
+					<h5 class="col-sm-12 text-center"><%= prettifyDID(extensions[num].connected_to) %></h5>
+
+<% } else if (extensions[num] && extensions[num].activeCall) { %>
+
+					<h5 class="col-sm-12 text-center"><%= prettifyDID(extensions[num].activeCall) %></h5>
+
+<% } %>
+					<h6 class="col-sm-12 text-center">Calls Taken: <%= queues[q_num].member_stats[num].CallsTaken %></h6>
+				</div>
+			</div>
+		</div>
+<%       }); %>
+<%		} else { %>
+		<h5 class="subheader">No Users in Queue: <%= q_num %></h5>
+<%		} %>
+	</section>
+
+<%     } %>
+<%   }); %>
+<% } %>
 </div>
 </script>
 
 <!-- ########## tmpl_callsPanel ########## -->
 <script type="text/template" id="tmpl_panelCalls">
-<header class="small-12 columns">
+<div class="calls col-sm-12">
+<% if (currentQ != 'default') { %>
+<header class="col-sm-12">
 	<h3 class="subheader"><strong>Calls in Queue</strong></h3>
 </header>
 
-<div class="small-12 columns isotope js-isotope calls" data-isotope-options='{ "layoutMode": "fitRows", "itemSelector": ".call" }'>
-<% _.each(queues[currentQ].activeCalls, function(call) { %>
-	<div class="panel call radius <%= call.status || 'default-status' %>">
-		<h2 class="small-6 center columns"><%= call.qtime %></h2>
-		<h6 class="small-12 columns tel"><%= (call.CallerIDNum.length < 7)?'Ext. ' + call.CallerIDNum:call.CallerIDNum %></h6>
-      <h6 class="small-12 columns">Agent: <%= call.ConnectedLineNum %></h6>
+	<% if (queues[currentQ] && queues[currentQ].activeCalls) { %>
+	<%	_.each(queues[currentQ].activeCalls, function(call) { %>
+		<div class="col-sm-4">
+			<div class="panel call <%= call.status || 'default-status' %>">
+				<div class="panel-body">
+					<h2 class="text-center col-sm-12"><% print(call.Wait.toHHMMSS()); %></h2>
+					<h5 class="text-center col-sm-12 tel"><%= prettifyDID(call.CallerIDNum) %></h5>
+					<h5 class="text-center col-sm-12">Agent: <%= call.ConnectedLineNum %></h5>
+				</div>
+			</div>
+		</div>
+	<%	}); %>
+	<% } else { %>
+		<h5 class="subheader">No Calls in Queue: <%= currentQ %></h5>
+	<% } %>
+<% } else { %>
+<% _.each(queues, function(q, num) { %>
+<% if (q.name != currentQ) { %>
+<section class="row qrow q<%= q.name %>">
+<% if (queues[q.name] && queues[q.name].activeCalls) { %>
+<%	_.each(queues[q.name].activeCalls, function(call) { %>
+	<div class="col-sm-4">
+		<div class="panel call <%= call.status || 'default-status' %>">
+			<div class="panel-body">
+				<h2 class="text-center col-sm-12"><% print(call.Wait.toHHMMSS()); %></h2>
+				<h5 class="text-center col-sm-12 tel"><%= prettifyDID(call.CallerIDNum) %></h5>
+				<h5 class="text-center col-sm-12">Agent: <%= call.ConnectedLineNum %></h5>
+			</div>
+		</div>
 	</div>
+<%	}); %>
+<% } else { %>
+		<h5 class="subheader">No Calls in Queue <%= q.name %></h5>
+	<% } %>
+</section>
+<% } %>
 <% }); %>
+<% } %>
+</div>
+</script>
+
+<script type="text/template" id="tmpl_panelExtensions">
+<div class="panel panel-extensions">
+	<header class="panel-heading"><h2 class="panel-title">Extensions</h2></header>
+	<div class="panel-body columns-2">
+<% _.each(extensions, function(ext, num) { %>
+<%   if (ext.device_type && ext.device_type.match(/sip_device/i)) { %>
+		<div class="extension"><span class="badge"><span class="glyphicon <%= (ext.status == 'oncall')?'glyphicon-earphone text-danger':((ext.status == 'ringing')?'glyphicon-earphone text-warning':'glyphicon-phone-alt text-success') %>"></span></span> <%= num %><% if (ext.connected_to || ext.activeCall) { %> <span class="glyphicon <%= (ext.direction == 'inbound')?'glyphicon-arrow-left':'glyphicon-arrow-right' %>"></span> <% if (ext.connected_to) { print( prettifyDID(ext.connected_to) ); } else if (ext.activeCall) { print( prettifyDID(ext.activeCall) ); } %><% } %></div>
+<%   } %>
+<% }); %>
+	</div>
 </div>
 </script>
 

@@ -1,48 +1,62 @@
+* {
+  text-rendering: optimizeLegibility;
+}
+html, body {
+  height: 100%;
+}
 body {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/paper_fff.jpg);
+  padding-top: 70px;
+  background-image: url('/assets/img/bg.jpg');
+  background-repeat: repeat-x;
+  background-color: #6E7377;
 }
-.tab-bar-section,
-.left-off-canvas-menu {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/102862/bgnoise.png);
+.panel-body {
+  padding: 7px;
 }
-.page-header {
-  border-bottom: 1px solid #000;
-  margin-bottom: 1rem;
+.panel-q-stats {
+  background-color: #666;
+  border: none;
+  border-left: 1px solid rgba(120, 120, 120, 0.1);
+  border-right: 1px solid rgba(120, 120, 120, 0.1);
+  border-bottom: 1px solid rgba(180, 180, 180, 0.4);
+  color: #fff;
+  letter-spacing: 1px;
+  box-shadow: inset 0 3px 5px 0 rgba(0,0,0,0.5);
+  font-size: 0.85em;
 }
 .user, .call {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-.call {
-  width: 16.4rem;
-  height-min: 7rem;
-  float: left;
-  margin-right: 1rem;
-}
-.call:last-of-type {
-  margin-right: 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 120px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.5);
 }
 .user.ready, .call.active {
-  background: rgba(200, 255, 200, 0.75);
-  border: 2px solid rgba(20, 255, 20, 1.0);
+  background: rgba(200, 255, 200, 0.55);
+  border: 2px solid rgba(20, 180, 20, 0.5);
 }
-.user.oncall, .call.waiting, .user.ringing, .call.default-status {
-  background: rgba(240, 230, 130, 0.75);
+.call.waiting, .user.ringing, .call.default-status {
+  background: rgba(240, 230, 130, 0.65);
   border: 2px solid rgba(200, 180, 0, 1.0);
 }
-.user.dnd, .call.tardy {
-  background: rgba(255, 200, 200, 0.75);
-  border: 2px solid rgba(255, 20, 20, 1.0);
-}
-.user {
-  width: 12rem;
-/*  height: 8.5rem; */
-  float: left;
-  margin-right: 1rem;
+.user.oncall, .user.dnd, .call.tardy {
+  background: rgba(255, 150, 150, 0.75);
+  border: 2px solid rgba(180, 20, 20, 0.5);
 }
 .user.offline {
   display: none;
+}
+.user h1, .user h2,
+.user h3, .user h4,
+.user h5, .user h6,
+.call h1, .call h2,
+.call h3, .call h4,
+.call h5, .call h6 {
+  padding: 0;
+  margin: 0.1em 0 0;
+}
+.subheader {
+  color: #fff;
 }
 
 .inbound:empty,
@@ -59,14 +73,8 @@ body {
   content: 'Inbound';
 }
 
-/* clear fix */
-.isotope:after {
-  content: '';
-  display: block;
-  clear: both;
-}
 #userPanelsWrap {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .call .tel:before {
   content: 'CID: ';
@@ -99,6 +107,66 @@ input[type=radio]:checked + label {
   background-color: #444 !important;
 }
 
+.row.qrow {
+  margin-bottom: 0em;
+}
+
+.row.qrow:not(:first-of-type) {
+  border-top: 1px solid silver;
+  padding-top: 1.3em;
+}
+
+#panelExtensions {
+  font-size: 12px;
+  height: 100%;
+}
+.panel-extensions {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.5);
+}
+.panel-extensions .panel-heading {
+  background-color: #666;
+  border: none;
+  color: #ccc;
+}
+
+.columns-2 {
+  -webkit-column-fill: auto;
+  -moz-column-fill: auto;
+  column-fill: auto;
+
+  -webkit-column-width: auto;
+  -moz-column-width: auto;
+  column-width: auto;
+
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+
+  -webkit-column-rule: 1px solid silver;
+  -moz-column-count: 1px solid silver;
+  column-count: 1px solid silver;
+
+  -webkit-column-gap: 10px;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+
+  font-size: 0.8em;
+}
+.ext_title {
+  -webkit-column-span: 2;
+  -moz-column-span: 2;
+  column-span: 2;
+}
+.extension {
+  height: 20px;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
 .func_q_select {
   font-weight: bold;
   letter-spacing: 1px;
@@ -113,4 +181,172 @@ input[type=radio]:checked + label {
 .func_q_select.active:hover {
   background-color: #a00;
   transition: all 0.3s;
+}
+
+.glyphicon.text-danger {
+  color: rgba(180, 20, 20, 1.0);
+}
+.glyphicon.text-warning {
+  color: rgba(180, 180, 0, 1.0);
+}
+.glyphicon.text-success {
+  color: rgba(20, 180, 20, 1.0);
+}
+
+
+
+/*
+ * Some superfluous special effects
+ */
+div.indicator {
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  margin: 5px auto;
+  border-radius: 50%;
+  background-color: #00f;
+  margin-top: 1.3rem;
+  margin-right: 0.55rem;
+
+
+  box-shadow: inset -8px -6px 48px 8px black;
+
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+  /* Hardware acceleration */
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  /* Smooths things out in environments that don't handle the animation very well */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+
+  zoom: 20%;
+}
+
+div.indicator.off {
+  background-color: #400;
+
+  box-shadow: inset -8px -6px 48px 8px black;
+
+  /* Hardware acceleration */
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  /* Smooths things out in environments that don't handle the animation very well */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+}
+
+div.indicator.on {
+  box-shadow: inset -8px -6px 48px 8px black;
+
+  -webkit-animation: pulse 1s infinite alternate;
+  -moz-animation: pulse 1s infinite alternate;
+  -ms-animation: pulse 1s infinite alternate;
+  -o-animation: pulse 1s infinite alternate;
+  animation: pulse 1s infinite alternate;
+
+  /* Hardware acceleration */
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  /* Smooths things out in environments that don't handle the animation very well */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    background-color: #800;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+  100% {
+    background-color: #d00;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+}
+
+@-moz-keyframes pulse {
+  0% {
+    background-color: #800;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+  100% {
+    background-color: #d00;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+}
+
+@-ms-keyframes pulse {
+  0% {
+    background-color: #800;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+  100% {
+    background-color: #d00;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+}
+
+@-o-keyframes pulse {
+  0% {
+    background-color: #800;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+  100% {
+    background-color: #d00;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #800;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
+  100% {
+    background-color: #d00;
+    box-shadow: inset -8px -6px 48px 8px black;
+  }
 }
